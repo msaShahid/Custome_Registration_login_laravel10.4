@@ -8,12 +8,13 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\RedirectResponse;
 
 class LoginRegisterController extends Controller
 {
     // login instance
     public function __construct() {
-        $this->middleware('guest')->except(['login','dashboard']);
+        $this->middleware('guest')->except(['logout','dashboard']);
     }
 
     // Registration
@@ -50,16 +51,16 @@ class LoginRegisterController extends Controller
         return view ('auth.login');
     }
 
-    // Authenticate the Users Credentials
+    // Authenticate the Users credentials
     public function authenticate(Request $request){
-        $cerdentials = $request->validate([
+        $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required'
             ]);
 
         if(Auth::attempt($credentials)){
-            $request->session()->regeerate();
-            return redirect('/dashboard')->withSccess('You have successfully loged in.');
+            $request->session()->generate();
+            return redirect()->route('dashboard')->withSccess('You have successfully loged in.');
         }else{
             return back()->withErrors(['email','You provided credentials do not match in our records.'])
             ->onlyInput('email');
@@ -78,11 +79,11 @@ class LoginRegisterController extends Controller
 
     // Logout user from the Application
 
-    public function logout(Request $request){
+    public function logout(Request $request):RedirectResponse {
         Auth::logout();
-        $request->session()->invaildate();
+        $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('auth.login')->withSuccess('You have logout successfully !');
+        return redirect('/login');
     }
 
 // Controller end here..    
