@@ -93,8 +93,15 @@ class getApiDataController extends Controller{
         
         */
 
+    }
 
+    public function getApiData(){
+
+       $postList =  post::limit(10)->get();
+
+        return view('userDashboard.apiDatalist',compact('postList'));
     }
 
 
+// Controller end here....
 }

@@ -26,10 +26,13 @@
                     </li>
                 @else
                     <li class="nav-item">
-                        <a class="nav-link" href="">Load API</a>
+                        <a class="nav-link" href="{{ URL('#') }}">Make Payment</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">List of API data</a>
+                        <a class="nav-link" href="{{ URL('apiData') }}">Load API</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ URL('getApiDataList') }}">List of API data</a>
                     </li>   
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
