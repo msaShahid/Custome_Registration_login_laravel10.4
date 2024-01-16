@@ -61,10 +61,10 @@ class LoginRegisterController extends Controller
         if(Auth::attempt($credentials)){
             $request->session()->generate();
             return redirect()->route('dashboard')->withSccess('You have successfully loged in.');
-        }else{
-            return back()->withErrors(['email','You provided credentials do not match in our records.'])
-            ->onlyInput('email');
         }
+        return back()->withErrors([
+            'email' => 'Your provided credentials do not match in our records.',
+        ])->onlyInput('email');
     }
 
     // Display the Dashboard to Authenticated users.
