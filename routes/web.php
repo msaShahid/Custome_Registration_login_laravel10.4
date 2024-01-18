@@ -21,8 +21,10 @@ Route::get('/', function () {
 });
 
 
+
 Route::controller(LoginRegisterController::class)->group(function() {
 
+    // Login and Registration
     Route::get('/register', 'register')->name('register');
     Route::post('/store', 'store')->name('store');
     Route::get('/login', 'login')->name('login');
@@ -30,12 +32,14 @@ Route::controller(LoginRegisterController::class)->group(function() {
     Route::get('/dashboard', 'dashboard')->name('dashboard');
     Route::post('/logout', 'logout')->name('logout');
 
-    // Consumming API 
-    Route::get('/apiData',[getApiDataController::class,'apiData']);
-    Route::get('/getApiDataList',[getApiDataController::class,'getApiData']);
+    Route::middleware(['auth.check'])->group(function(){
+        // Consumming API 
+        Route::get('/apiData',[getApiDataController::class,'apiData']);
+        Route::get('/getApiDataList',[getApiDataController::class,'getApiData']);
 
-    // Setup for Razorpay
-    Route::get('razorpay',[RazorpayController::class,'index']);
-    Route::post('razorpay-payment',[RazorpayController::class,'storePaymentDetails'])->name('razorpay.payment.store');
-})->middleware('auth');
+        // Setup for Razorpay
+        Route::get('razorpay',[RazorpayController::class,'index']);
+        Route::post('razorpay-payment',[RazorpayController::class,'storePaymentDetails'])->name('razorpay.payment.store');
+    });
+});
 
