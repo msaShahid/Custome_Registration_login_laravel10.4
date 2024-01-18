@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Laravel 10 Custom User Registration & Login Tutorial - AllPHPTricks.com</title>
@@ -26,7 +27,7 @@
                     </li>
                 @else
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ URL('#') }}">Make Payment</a>
+                        <a class="nav-link" href="{{ URL('razorpay') }}">Razorpay Payment</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ URL('apiData') }}">Load API</a>

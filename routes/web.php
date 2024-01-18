@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\getApiDataController;
+use App\Http\Controllers\Payment\RazorpayController;
 use App\Http\Controllers\Auth\LoginRegisterController;
 
 /*
@@ -29,7 +30,12 @@ Route::controller(LoginRegisterController::class)->group(function() {
     Route::get('/dashboard', 'dashboard')->name('dashboard');
     Route::post('/logout', 'logout')->name('logout');
 
+    // Consumming API 
     Route::get('/apiData',[getApiDataController::class,'apiData']);
     Route::get('/getApiDataList',[getApiDataController::class,'getApiData']);
-});
+
+    // Setup for Razorpay
+    Route::get('razorpay',[RazorpayController::class,'index']);
+    Route::post('razorpay-payment',[RazorpayController::class,'storePaymentDetails'])->name('razorpay.payment.store');
+})->middleware('auth');
 

@@ -19,7 +19,7 @@ class getApiDataController extends Controller{
             if ($dataResponse->successful()) {
                 $responseData = $dataResponse->json(); // Convert the response body to JSON
 
-                // Assuming API data in DB
+                // consuming API data in DB
                 foreach ($responseData as $postData){
                     $post = new post();
                     $post->title = $postData['title'];
@@ -41,6 +41,7 @@ class getApiDataController extends Controller{
 
 
         /*
+         // for BULk data consumming in DB
             $apiLink = 'https://jsonplaceholder.typicode.com/posts';
 
             $dataResponse = Http::get($apiLink);
